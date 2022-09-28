@@ -15,3 +15,8 @@ export const True = K;
 export const KI = <T>(a: T) => <K>(b: K) => b;
 export const Kite = KI;
 export const False = KI;
+
+// C := λfab.fba - Cardinal flip combinator
+export const C = <T extends Function>(f: T) => <K>(a: K) => <R>(b: R) => f(b)(a) 
+export const Cardinal = C;
+export const Flip = C;

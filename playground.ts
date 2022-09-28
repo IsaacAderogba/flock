@@ -1,4 +1,8 @@
-import { I, K } from "./src";
+import { I, K, C } from "./src";
 
+// composing combinators
+const kite = K(I);
+const cardinal = kite;
 
-const kite = K(I)(1);
+console.log(cardinal(1)(2));
+console.log(C(K)(1)(2));
