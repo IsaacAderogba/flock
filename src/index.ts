@@ -52,3 +52,19 @@ export function OR<T extends Boolean>(p: T) {
 export function BEQ<T extends Boolean>(p: T) {
   return <K extends Boolean>(q: K) => p(q(True)(False))(q(False)(True));
 }
+
+/**
+ * Church numerals
+ */
+
+// Succ := λnfx.f(nfx) - returns a new number function that does the original application n + 1 times
+export function Succ<T extends Function>(numeral: T) {
+  return <K extends Function>(f: K) =>
+    <R>(x: R) =>
+      f(numeral(f)(x));
+}
+
+// 0 := λfx.x - zero doesn't apply the function at all (like false)
+export function Zero<T extends Function>(f: T) {
+  return <K>(x: K) => x;
+}
