@@ -14,6 +14,16 @@ export function SelfApplication<T extends Function>(f: T) {
 export const M = SelfApplication;
 export const Mockingbird = SelfApplication;
 
+// C := λfab.fba - Cardinal flip combinator
+export function Flip<T extends Function>(f: T) {
+  return <K>(a: K) =>
+    <R>(b: R) =>
+      f(b)(a);
+}
+
+export const C = Flip;
+export const Cardinal = Flip;
+
 // K := λab.a - Kestrel constant combinator, returns first
 export function True<T>(a: T) {
   return <K>(b: K) => a;
@@ -30,28 +40,20 @@ export const KI = False;
 export const Kite = False;
 export const Second = False;
 
-// C := λfab.fba - Cardinal flip combinator
-export function Flip<T extends Function>(f: T) {
-  return <K>(a: K) => <R>(b: R) => f(b)(a);
-}
-
-export const C = Flip;
-export const Cardinal = Flip;
-
 // Not := λb.bFT - takes a boolean and tells it to select its opposite
 export function Not<T extends Boolean>(choose: T) {
-    return choose(False)(True)
+  return choose(False)(True);
 }
 
 // And: λpq.pqp - takes in boolean functions, can shortcircuit to false
 export function And<T extends Boolean>(p: T) {
-    // if p is false, select the second thing which is false
-    // if p is true, select the first which might be true or false. Have to use q as the result.
-    return <K extends Boolean>(q: K) => p(q)(p)
+  // if p is false, select the second thing which is false
+  // if p is true, select the first which might be true or false. Have to use q as the result.
+  return <K extends Boolean>(q: K) => p(q)(p);
 }
 
 // OR: λpq.ppq - takes in boolean functions, can shortcircuit to true
 export function OR<T extends Boolean>(p: T) {
-    // vice versa of the and reasoning
-    return <K extends Boolean>(q: K) => p(p)(q)
+  // vice versa of the and reasoning
+  return <K extends Boolean>(q: K) => p(p)(q);
 }
