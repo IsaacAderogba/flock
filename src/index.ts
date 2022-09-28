@@ -15,13 +15,6 @@ export function Flip<T extends Function>(f: T) {
       f(b)(a);
 }
 
-// B := λfgx.f(gx) - Bluebird compose combinator
-export function Compose<T extends Function>(f: T) {
-  return <K extends Function>(g: K) =>
-    <R>(x: R) =>
-      f(g(x));
-}
-
 /**
  * church booleans
  */
@@ -75,3 +68,20 @@ export function Succ<T extends Function>(numeral: T) {
 export function Zero<T extends Function>(f: T) {
   return <K>(x: K) => x;
 }
+
+// Add := λab.a(succ)b
+export function Add<T extends Function>(numA: T) {
+  return <K extends Function>(numB: K) => numA(Succ)(numB);
+}
+
+// Multiply := λfgx.f(gx)
+export function Mult<T extends Function>(f: T) {
+  return <K extends Function>(g: K) =>
+    <R>(x: R) =>
+      f(g(x));
+}
+
+// Exp := λab.ba
+export function Exp<T extends Function>(numA: T) {
+    return <K extends Function>(numB: K) => numB(numA)
+  }

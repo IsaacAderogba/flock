@@ -1,4 +1,4 @@
-import { Succ, Zero, Compose, True, Not } from "./src";
+import { Succ, Zero, Add, Exp } from "./src";
 
 function toNum<T extends Function>(succ: T) {
   return succ((x) => x + 1)(0);
@@ -9,5 +9,6 @@ const one = Succ(zero);
 const two = Succ(one);
 const three = Succ(two);
 const four = Succ(three);
+const five = Add(one)(four);
 
-console.log(Compose(Not)(Not)(True))
+console.log(toNum(Exp(three)(five)))
