@@ -13,20 +13,20 @@ export const M = SelfApplication;
 export const Mockingbird = SelfApplication;
 
 // K := λab.a - Kestrel constant combinator, returns first
-export function First<T>(a: T) {
+export function True<T>(a: T) {
   return <K>(b: K) => a;
 }
-export const K = First;
-export const Kestrel = First;
-export const True = First;
+export const K = True;
+export const Kestrel = True;
+export const First = True;
 
 // KI := λab.a - Kite inconstant combinator, returns second
-export function Second<T>(a: T) {
+export function False<T>(a: T) {
   return <K>(b: K) => b;
 }
-export const KI = Second;
-export const Kite = Second;
-export const False = Second;
+export const KI = False;
+export const Kite = False;
+export const Second = False;
 
 // C := λfab.fba - Cardinal flip combinator
 export function Flip<T extends Function>(f: T) {
@@ -35,3 +35,8 @@ export function Flip<T extends Function>(f: T) {
 
 export const C = Flip;
 export const Cardinal = Flip;
+
+// Not := λb.bFT - takes a boolean and tells it to select its opposite
+export function Not<T extends typeof True | typeof False>(choose: T) {
+    return choose(False)(True)
+}

@@ -1,7 +1,6 @@
-import { I, K, C } from "./src";
+import { I, K, C, Not, True, False } from "./src";
 
 // composing combinators
 const kite = K(I);
-const cardinal = kite;
 
-console.log(I);
+console.log(Not(False))
