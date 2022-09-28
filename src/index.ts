@@ -15,6 +15,13 @@ export function Flip<T extends Function>(f: T) {
       f(b)(a);
 }
 
+// B := λfgx.f(gx) - Bluebird compose combinator
+export function Compose<T extends Function>(f: T) {
+  return <K extends Function>(g: K) =>
+    <R>(x: R) =>
+      f(g(x));
+}
+
 /**
  * church booleans
  */
