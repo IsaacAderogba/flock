@@ -1,3 +1,5 @@
+type Boolean = typeof True | typeof False;
+
 // I := λx.x - Identity combinator
 export function Identity<T>(x: T) {
   return x;
@@ -37,6 +39,13 @@ export const C = Flip;
 export const Cardinal = Flip;
 
 // Not := λb.bFT - takes a boolean and tells it to select its opposite
-export function Not<T extends typeof True | typeof False>(choose: T) {
+export function Not<T extends Boolean>(choose: T) {
     return choose(False)(True)
+}
+
+// And: λpq.pqp - takes in boolean functions
+export function And<T extends Boolean>(p: T) {
+    // if p is false, select the second thing which is false
+    // if p is true, select the first which might be true or false. Have to use q as the result.
+    return <K extends Boolean>(q: K) => p(q)(p)
 }
