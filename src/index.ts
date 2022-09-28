@@ -90,3 +90,12 @@ export function Mult<T extends Function>(f: T) {
 export function Exp<T extends Function>(numA: T) {
   return <K extends Function>(numB: K) => numB(numA);
 }
+
+/**
+ * data structures
+ */
+export function Tuple<T>(a: T) {
+  return <K>(b: K) =>
+    <R extends (a: T) => (b: K) => unknown>(f: R) =>
+      f(a)(b);
+}
