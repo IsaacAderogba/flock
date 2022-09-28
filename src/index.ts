@@ -24,6 +24,10 @@ export function Flip<T extends Function>(f: T) {
 export const C = Flip;
 export const Cardinal = Flip;
 
+/**
+ * church booleans
+ */
+
 // K := λab.a - Kestrel constant combinator, returns first
 export function True<T>(a: T) {
   return <K>(b: K) => a;
@@ -56,4 +60,10 @@ export function And<T extends Boolean>(p: T) {
 export function OR<T extends Boolean>(p: T) {
   // vice versa of the and reasoning
   return <K extends Boolean>(q: K) => p(p)(q);
+}
+
+// BEQ := λpq.p (qTF) (qFT) - boolean equality
+export function BEQ<T extends Boolean>(p: T) {
+  // vice versa of the and reasoning
+  return <K extends Boolean>(q: K) => p(q(True)(False))(q(False)(True));
 }
