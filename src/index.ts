@@ -43,9 +43,15 @@ export function Not<T extends Boolean>(choose: T) {
     return choose(False)(True)
 }
 
-// And: λpq.pqp - takes in boolean functions
+// And: λpq.pqp - takes in boolean functions, can shortcircuit to false
 export function And<T extends Boolean>(p: T) {
     // if p is false, select the second thing which is false
     // if p is true, select the first which might be true or false. Have to use q as the result.
     return <K extends Boolean>(q: K) => p(q)(p)
+}
+
+// OR: λpq.ppq - takes in boolean functions, can shortcircuit to true
+export function OR<T extends Boolean>(p: T) {
+    // vice versa of the and reasoning
+    return <K extends Boolean>(q: K) => p(p)(q)
 }
