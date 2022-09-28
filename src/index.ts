@@ -69,6 +69,11 @@ export function Zero<T extends Function>(f: T) {
   return <K>(x: K) => x;
 }
 
+// isZero := λn.n(KF)T
+export function isZero<T extends Function>(num: T) {
+  return num(True(False))(True);
+}
+
 // Add := λab.a(succ)b
 export function Add<T extends Function>(numA: T) {
   return <K extends Function>(numB: K) => numA(Succ)(numB);
@@ -83,5 +88,5 @@ export function Mult<T extends Function>(f: T) {
 
 // Exp := λab.ba
 export function Exp<T extends Function>(numA: T) {
-    return <K extends Function>(numB: K) => numB(numA)
-  }
+  return <K extends Function>(numB: K) => numB(numA);
+}
