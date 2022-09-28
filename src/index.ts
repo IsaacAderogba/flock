@@ -1,22 +1,37 @@
 // I := λx.x - Identity combinator
-export const I = <T>(x: T) => x;
-export const Idiot = I;
+export function Identity<T>(x: T) {
+  return x;
+}
+export const I = Identity;
+export const Idiot = Identity;
 
 // M := λf.ff - Mockingbird self-application combinator
-export const M = <T extends Function>(f: T) => f(f);
-export const Mockingbird = M;
+export function SelfApplication<T extends Function>(f: T) {
+  return f(f);
+}
+export const M = SelfApplication;
+export const Mockingbird = SelfApplication;
 
 // K := λab.a - Kestrel constant combinator, returns first
-export const K = <T>(a: T) => <K>(b: K) => a;
-export const Kestrel = K;
-export const True = K;
+export function First<T>(a: T) {
+  return <K>(b: K) => a;
+}
+export const K = First;
+export const Kestrel = First;
+export const True = First;
 
 // KI := λab.a - Kite inconstant combinator, returns second
-export const KI = <T>(a: T) => <K>(b: K) => b;
-export const Kite = KI;
-export const False = KI;
+export function Second<T>(a: T) {
+  return <K>(b: K) => b;
+}
+export const KI = Second;
+export const Kite = Second;
+export const False = Second;
 
 // C := λfab.fba - Cardinal flip combinator
-export const C = <T extends Function>(f: T) => <K>(a: K) => <R>(b: R) => f(b)(a) 
-export const Cardinal = C;
-export const Flip = C;
+export function Flip<T extends Function>(f: T) {
+  return <K>(a: K) => <R>(b: R) => f(b)(a);
+}
+
+export const C = Flip;
+export const Cardinal = Flip;
